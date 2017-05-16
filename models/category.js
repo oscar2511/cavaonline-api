@@ -1,19 +1,17 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
-var productSchema = new Schema({
+var categorySchema = new Schema({
  name:        { type: String },
  description: { type: String },
- price:       { type: Number },
- stock:       { type: Boolean },
  urlImg:      { type: String },
  created:     { type: Date, default: Date.now },
  updated:     { type: Date },
  deleted:     { type: Date },
- categoryId:  { type: Number }
+ estado:      { type: Boolean}
 },
 {
-  collection:'product'
+  collection:'category'
 });
 
-module.exports = mongoose.model('Product', productSchema);
+module.exports = mongoose.model('Category', categorySchema);

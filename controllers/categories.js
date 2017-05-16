@@ -1,20 +1,20 @@
 var mongoose = require('mongoose');
-var Product = mongoose.model('Product');
+var Category = mongoose.model('Category');
 
 //GET - Return all registers
 exports.findAll = function(req, res) {
-  var Product = mongoose.model('Product');
- Product.find({},function(err, products) {
+  var Category = mongoose.model('Category');
+ Category.find({},function(err, category) {
  if(err) res.send(500, err.message);
- console.log('GET /products')
- res.status(200).jsonp(products);
+ console.log('GET /categories')
+ res.status(200).jsonp(category);
  });
 };
 
 exports.add = function(req, res) {
   console.log('POST');
  console.log(req.body);
- var Product =  mongoose.model('Product')({
+ var Category =  mongoose.model('Category')({
    name: req.body.name,
    description: req.body.description,
    price: req.body.price,
@@ -22,8 +22,8 @@ exports.add = function(req, res) {
    urlImg: req.body.urlImg,
    categoryId: req.body.categoryId
  });
- Product.save(function(err, product) {
+ Category.save(function(err, category) {
    if(err) return res.send(500, err.message);
-   res.status(200).jsonp(product);
+   res.status(200).jsonp(category);
  })
 }

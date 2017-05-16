@@ -5,9 +5,14 @@ var methodOverride = require("method-override");
 var app = express();
 
 // Connection to DB
-mongoose.connect('mongodb://localhost/cavaonline', function(err, res) {
+mongoose.connect('mongodb://leadsius.local:27017/cavaonline', function(err, res) {
  if(err) throw err;
  console.log('Connected to Database');
+});
+
+// Start server
+app.listen(3000, function() {
+ console.log("Node server running on http://localhost:3000");
 });
 
 // Middlewares
@@ -16,14 +21,16 @@ app.use(bodyParser.json());
 app.use(methodOverride());
 
 // Import Models and Controllers
-var models = require('./models/product')(app, mongoose);
-var ProductCtrl = require('./controllers/products');
+var modelProduct   = require('./models/product')(app, mongoose);
+var modelsCategory = require('./models/category')(app, mongoose);
+var ProductCtrl    = require('./controllers/products');
+var CategoryCtrl   = require('./controllers/categories');
 
 var router = express.Router();
 
 // Index - Route
 router.get('/', function(req, res) {
- res.send("Hola Mundo - www.programacion.com.py");
+ res.send("Hola Mundo");
 });
 
 app.use(router);
@@ -32,9 +39,12 @@ app.use(router);
 var api = express.Router();
 
 api.route('/products')
- .get(ProductCtrl.findAll);
- //.post(ProductCtrl.add);
+ .get(ProductCtrl.findAll)
+ .post(ProductCtrl.add);
 
+ api.route('/categories')
+  .get(CategoryCtrl.findAll)
+  .post(CategoryCtrl.add);
 /*
 api.route('/clients/:id')
  .get(ClientCtrl.findById)
@@ -42,9 +52,3 @@ api.route('/clients/:id')
  .delete(ClientCtrl.delete);
 */
 app.use('/api', api);
-
-
-// Start server
-app.listen(3000, function() {
- console.log("Node server running on http://localhost:3000");
-});
