@@ -19,11 +19,10 @@ app.use(methodOverride());
 // Import Models and Controllers
 var modelProduct   = require('./models/product')(app, mongoose);
 var modelsCategory = require('./models/category')(app, mongoose);
-//var ProductCtrl    = require('./controllers/products');
+
 import {ProductController} from './controllers/products';
 
-var ProductCtrl = new ProductController;
-
+var ProductCtrl = new ProductController();
 
 var CategoryCtrl   = require('./controllers/categories');
 
@@ -40,16 +39,16 @@ app.use(router);
 var api = express.Router();
 
 api.route('/products')
- .get(ProductCtrl.findAll);
- //.post(ProductCtrl.add);
+ .get(ProductCtrl.findAll)
+ .post(ProductCtrl.add);
 
  api.route('/categories')
   .get(CategoryCtrl.findAll)
   .post(CategoryCtrl.add);
-/*
-api.route('/clients/:id')
- .get(ClientCtrl.findById)
- .put(ClientCtrl.update)
- .delete(ClientCtrl.delete);
-*/
+
+api.route('/products/:id')
+ .get(ProductCtrl.findById)
+ .put(ProductCtrl.update);
+ //.delete(ClientCtrl.delete);
+
 app.use('/api', api);
