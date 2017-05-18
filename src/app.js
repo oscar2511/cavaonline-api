@@ -1,14 +1,10 @@
-var express = require('express');
-var bodyParser = require('body-parser');
-var mongoose = require('mongoose');
-var methodOverride = require("method-override");
+/** flow */
+import express from 'express';
+import bodyParser from 'body-parser';
+import mongoose from 'mongoose';
+import methodOverride from 'method-override';
+import {Conn} from './conn';
 var app = express();
-
-// Connection to DB
-mongoose.connect('mongodb://leadsius.local:27017/cavaonline', function(err, res) {
- if(err) throw err;
- console.log('Connected to Database');
-});
 
 // Start server
 app.listen(3000, function() {
@@ -23,13 +19,18 @@ app.use(methodOverride());
 // Import Models and Controllers
 var modelProduct   = require('./models/product')(app, mongoose);
 var modelsCategory = require('./models/category')(app, mongoose);
-var ProductCtrl    = require('./controllers/products');
+//var ProductCtrl    = require('./controllers/products');
+import {ProductController} from './controllers/products';
+
+var ProductCtrl = new ProductController;
+
+
 var CategoryCtrl   = require('./controllers/categories');
 
 var router = express.Router();
 
 // Index - Route
-router.get('/', function(req, res) {
+router.get('/', (req, res) => {
  res.send("Hola Mundo");
 });
 
@@ -39,8 +40,8 @@ app.use(router);
 var api = express.Router();
 
 api.route('/products')
- .get(ProductCtrl.findAll)
- .post(ProductCtrl.add);
+ .get(ProductCtrl.findAll);
+ //.post(ProductCtrl.add);
 
  api.route('/categories')
   .get(CategoryCtrl.findAll)
