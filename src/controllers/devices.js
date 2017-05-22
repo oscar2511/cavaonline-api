@@ -2,16 +2,16 @@
 import mongoose from 'mongoose';
 import _ from 'lodash';
 
-export class ProductController {
+export class DeviceController {
 
   /*
   * GET - Get all registers
   */
   findAll(req:any, res:any) {
-    mongoose.model('Product').find({}, (err, products) => {
+    mongoose.model('Device').find({}, (err, devices) => {
     if(err) res.send(500, err.message);
-    console.log('GET /products')
-    res.status(200).jsonp(products);
+    console.log('GET /devices')
+    res.status(200).jsonp(devices);
     });
    };
 
@@ -20,25 +20,24 @@ export class ProductController {
   */
    add(req, res) {
     console.log(req.body);
-    var Product =  mongoose.model('Product')({
-      name: req.body.name,
-      description: req.body.description,
-      price: req.body.price,
-      stock: req.body.stock,
-      urlImg: req.body.urlImg,
-      categoryId: req.body.categoryId,
-      created: Date.now()
+    var Device =  mongoose.model('Device')({
+      uuid: req.body.uuid,
+      token: req.body.token,
+      isAdministrator: req.body.isAdministrator,
+      created: Date.now(),
+      deleted: req.body.deleted,
+      updated: req.body.updated
     });
-    Product.save(function(err, product) {
+    Device.save(function(err, device) {
       if(err) return res.send(500, err.message);
-      res.status(200).jsonp(product);
+      res.status(200).jsonp(device);
     })
    }
 
    //PUT - Update a register already exists
-  update(req, res) {
+  /*update(req, res) {
       let Product =  mongoose.model('Product');
-      Product.findById(req.params.id, function(err, product) {
+      Device.findById(req.params.id, function(err, product) {
 
         if(!_.isUndefined(req.body.name) && !_.isEmpty(req.body.name))
           product.name = req.body.name;
@@ -70,5 +69,6 @@ export class ProductController {
         res.status(200).jsonp(product);
       });
   };
+  */
 
 }

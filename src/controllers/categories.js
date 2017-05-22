@@ -12,7 +12,6 @@ exports.findAll = function(req, res) {
 };
 
 exports.add = function(req, res) {
-  console.log('POST');
  console.log(req.body);
  var Category =  mongoose.model('Category')({
    name: req.body.name,

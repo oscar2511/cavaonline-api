@@ -3,7 +3,8 @@ import express from 'express';
 import bodyParser from 'body-parser';
 import mongoose from 'mongoose';
 import methodOverride from 'method-override';
-import {Conn} from './conn';
+import {Conn} from './config/conn';
+
 var app = express();
 
 // Start server
@@ -19,19 +20,16 @@ app.use(methodOverride());
 // Import Models and Controllers
 var modelProduct   = require('./models/product')(app, mongoose);
 var modelsCategory = require('./models/category')(app, mongoose);
+var modelDevice = require('./models/device')(app, mongoose);
 
 import {ProductController} from './controllers/products';
+import {DeviceController} from './controllers/devices';
 
-var ProductCtrl = new ProductController();
-
-var CategoryCtrl   = require('./controllers/categories');
+var ProductCtrl  = new ProductController();
+var DeviceCtrl   = new DeviceController();
+var CategoryCtrl = require('./controllers/categories');
 
 var router = express.Router();
-
-// Index - Route
-router.get('/', (req, res) => {
- res.send("Hola Mundo");
-});
 
 app.use(router);
 
@@ -41,6 +39,10 @@ var api = express.Router();
 api.route('/products')
  .get(ProductCtrl.findAll)
  .post(ProductCtrl.add);
+
+ api.route('/devices')
+  .get(DeviceCtrl.findAll)
+  .post(DeviceCtrl.add);
 
  api.route('/categories')
   .get(CategoryCtrl.findAll)
