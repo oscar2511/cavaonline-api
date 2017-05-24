@@ -43,6 +43,8 @@ api.route('/products')
  api.route('/devices')
   .get(DeviceCtrl.findAll)
   .post(DeviceCtrl.add);
+api.route('/devices/administrators')
+  .get(DeviceCtrl.findAdministrators);
 
  api.route('/categories')
   .get(CategoryCtrl.findAll)
@@ -51,6 +53,8 @@ api.route('/products')
 api.route('/products/:id')
  .get(ProductCtrl.findById)
  .put(ProductCtrl.update);
- //.delete(ClientCtrl.delete);
+
+ api.route('/products/category/:id')
+  .get(ProductCtrl.findByCategory);
 
 app.use('/api', api);

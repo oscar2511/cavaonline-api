@@ -10,7 +10,7 @@ var productSchema = new Schema({
  created:     { type: Date, default: Date.now },
  updated:     { type: Date },
  deleted:     { type: Date },
- categoryId:  { type: Number }
+ categoryId:  { type: String }
 },
 {
   collection:'product'

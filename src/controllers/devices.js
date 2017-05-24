@@ -24,15 +24,24 @@ export class DeviceController {
       uuid: req.body.uuid,
       token: req.body.token,
       isAdministrator: req.body.isAdministrator,
-      created: Date.now(),
-      deleted: req.body.deleted,
-      updated: req.body.updated
+      created: Date.now()
     });
     Device.save(function(err, device) {
       if(err) return res.send(500, err.message);
       res.status(200).jsonp(device);
     })
    }
+
+   /*
+   * GET - Get all registers
+   */
+   findAdministrators(req:any, res:any) {
+     mongoose.model('Device').find({'isAdministrator': true}, (err, devices) => {
+     if(err) res.send(500, err.message);
+     console.log('GET /devices/administrators')
+     res.status(200).jsonp(devices);
+     });
+    };
 
    //PUT - Update a register already exists
   /*update(req, res) {

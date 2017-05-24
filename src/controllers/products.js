@@ -71,4 +71,15 @@ export class ProductController {
       });
   };
 
+  //GET - Return a register with specified ID
+  findByCategory(req, res) {
+    console.log(req.params);
+      let Product =  mongoose.model('Product');
+      Product.find({"categoryId": req.params.id}, (err, products) => {
+        if(err) return res.send(500, err.message);
+        console.log('GET /products/category/:id' + req.params.id);
+        res.status(200).jsonp(products);
+      });
+  };
+
 }
