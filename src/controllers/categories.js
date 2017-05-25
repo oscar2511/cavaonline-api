@@ -16,10 +16,7 @@ exports.add = function(req, res) {
  var Category =  mongoose.model('Category')({
    name: req.body.name,
    description: req.body.description,
-   price: req.body.price,
-   stock: req.body.stock,
-   urlImg: req.body.urlImg,
-   categoryId: req.body.categoryId
+   urlImg: req.body.urlImg
  });
  Category.save(function(err, category) {
    if(err) return res.send(500, err.message);
