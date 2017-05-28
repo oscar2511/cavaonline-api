@@ -20,14 +20,17 @@ app.use(methodOverride());
 // Import Models and Controllers
 var modelProduct   = require('./models/product')(app, mongoose);
 var modelsCategory = require('./models/category')(app, mongoose);
-var modelDevice = require('./models/device')(app, mongoose);
+var modelDevice    = require('./models/device')(app, mongoose);
+var modelOrder     = require('./models/order')(app, mongoose);
 
 import {ProductController} from './controllers/products';
 import {DeviceController} from './controllers/devices';
+import {OrderController} from './controllers/orders';
 
 var ProductCtrl  = new ProductController();
 var DeviceCtrl   = new DeviceController();
 var CategoryCtrl = require('./controllers/categories');
+var OrderCtrl    = new OrderController();
 
 var router = express.Router();
 
@@ -53,6 +56,10 @@ api.route('/devices/administrators')
 api.route('/products/:id')
  .get(ProductCtrl.findById)
  .put(ProductCtrl.update);
+
+ api.route('/order')
+  .get(OrderCtrl.findAll)
+  .post(OrderCtrl.newOrder);
 
  api.route('/products/category/:id')
   .get(ProductCtrl.findByCategory);
