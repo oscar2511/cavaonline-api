@@ -7,7 +7,7 @@ var orderSchema = new Schema({
   total:       { type: String },
   subtotal:    { type: String },
   device:      { type: Object },
-  address:     { type: Object }
+  address:     { type: Object },
   state:       { type: Number, default: 1 },
   created:     { type: Date, default: Date.now },
   updated:     { type: Date },
