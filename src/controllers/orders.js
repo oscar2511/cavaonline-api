@@ -26,7 +26,7 @@ export class OrderController {
       total:    req.body.total,
       subtotal: req.body.subtotal,
       device:   req.body.dispositivo,
-      address:  req.body.direccion,
+      address:  req.body.ubicacion,
       created:  Date.now()
     });
     Order.save(function(err, order) {
