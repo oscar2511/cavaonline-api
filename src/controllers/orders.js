@@ -64,7 +64,7 @@ export class OrderController {
   //GET - Return a register with specified ID
   findById(req, res) {
       let Order =  mongoose.model('Order');
-      Product.findById(req.params.id, function(err, order) {
+      Order.findById(req.params.id, function(err, order) {
         if(err) return res.send(500, err.message);
         console.log('GET /order/' + req.params.id);
         res.status(200).jsonp(order);
