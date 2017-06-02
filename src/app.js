@@ -4,6 +4,7 @@ import bodyParser from 'body-parser';
 import mongoose from 'mongoose';
 import methodOverride from 'method-override';
 import {Conn} from './config/conn';
+import {allowCrossDomain} from './config/config'
 
 var app = express();
 
@@ -15,6 +16,7 @@ app.listen(3000, function() {
 // Middlewares
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
+app.use(allowCrossDomain);
 app.use(methodOverride());
 
 // Import Models and Controllers
@@ -56,6 +58,9 @@ api.route('/devices/administrators')
 api.route('/products/:id')
  .get(ProductCtrl.findById)
  .put(ProductCtrl.update);
+
+ api.route('/products/change-stock')
+  .post(ProductCtrl.changeStock);
 
  api.route('/order')
   .get(OrderCtrl.findAll)

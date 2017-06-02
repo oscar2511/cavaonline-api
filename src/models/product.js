@@ -4,7 +4,7 @@ var Schema = mongoose.Schema;
 var productSchema = new Schema({
  name:        { type: String },
  description: { type: String },
- price:       { type: Number },
+ price:       { type: String },
  stock:       { type: Boolean },
  urlImg:      { type: String },
  created:     { type: Date, default: Date.now },

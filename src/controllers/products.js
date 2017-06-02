@@ -61,6 +61,19 @@ export class ProductController {
    });
   };
 
+  changeStock(req, res) {
+      let Product =  mongoose.model('Product');
+      console.log('id product to change stock' + req.params.id); process.exit();
+      Product.findById(req.params.id, function(err, product) {
+          product.stock = req.body.newStock;
+          product.updated = Date.now();
+      product.save(function(err) {
+      if(err) return res.send(500, err.message);
+      res.status(200).jsonp(product);
+     });
+   });
+  }
+
   //GET - Return a register with specified ID
   findById(req, res) {
       let Product =  mongoose.model('Product');
