@@ -8,7 +8,7 @@ export class OrderController {
   * GET - Get all registers
   */
   findAll(req:any, res:any) {
-    mongoose.model('Order').find({}, (err, orders) => {
+    mongoose.model('Order').find({}).sort('-created').exec((err, orders) => {
     if(err) res.send(500, err.message);
     console.log('GET /order')
     res.status(200).jsonp(orders);
