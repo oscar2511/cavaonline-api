@@ -19,15 +19,20 @@ export class OrderController {
   * //POST - Add a new product
   */
    newOrder(req, res) {
-    console.log(req.body);
+    if(!_.isNumber(req.body.numero)) return res.send(500, 'numero is required');
+    if(!_.isArray(req.body.detalle)) return res.send(500, 'detalle is required');
+    if(!_.isString(req.body.total)) return res.send(500, 'total is required');
+    if(!_.isString(req.body.subTotal)) return res.send(500, 'subTotal is required');
+    if(!_.isObject(req.body.dispositivo)) return res.send(500, 'dispositivo is required');
+    if(!_.isObject(req.body.ubicacion)) return res.send(500, 'ubicacion is required');
+
     var Order =  mongoose.model('Order')({
       number:   req.body.numero,
       detail:   req.body.detalle,
       total:    req.body.total,
-      subtotal: req.body.subtotal,
+      subtotal: req.body.subTotal,
       device:   req.body.dispositivo,
-      address:  req.body.ubicacion,
-      created:  Date.now()
+      address:  req.body.ubicacion
     });
     Order.save(function(err, order) {
       if(err) return res.send(500, err.message);

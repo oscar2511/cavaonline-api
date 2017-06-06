@@ -63,8 +63,7 @@ export class ProductController {
 
   changeStock(req, res) {
       let Product =  mongoose.model('Product');
-      console.log('id product to change stock' + req.params.id); process.exit();
-      Product.findById(req.params.id, function(err, product) {
+      Product.findById(req.body.id, function(err, product) {
           product.stock = req.body.newStock;
           product.updated = Date.now();
       product.save(function(err) {

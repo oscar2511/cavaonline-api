@@ -59,8 +59,8 @@ api.route('/products/:id')
  .get(ProductCtrl.findById)
  .put(ProductCtrl.update);
 
- api.route('/products/change-stock')
-  .post(ProductCtrl.changeStock);
+ api.route('/product/change-stock')
+  .put(ProductCtrl.changeStock);
 
  api.route('/order')
   .get(OrderCtrl.findAll)
