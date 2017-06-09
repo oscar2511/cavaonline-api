@@ -20,6 +20,8 @@ export class ProductController {
   */
    add(req, res) {
     console.log(req.body);
+
+    process.exit();
     var Product =  mongoose.model('Product')({
       name: req.body.name,
       description: req.body.description,
