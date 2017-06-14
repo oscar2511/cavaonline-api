@@ -37,21 +37,22 @@ export class ProductController {
 
    //PUT - Update a register already exists
   update(req, res) {
+      console.log(req.params);
       let Product =  mongoose.model('Product');
       Product.findById(req.params.id, function(err, product) {
 
-        if(!_.isUndefined(req.body.name) && !_.isEmpty(req.body.name))
-          product.name = req.body.name;
-        if(!_.isUndefined(req.body.description) && !_.isEmpty(req.body.description))
-          product.description = req.body.description;
-        if(!_.isUndefined(req.body.price) && !_.isEmpty(req.body.price))
-          product.price = req.body.price;
+        if(!_.isUndefined(req.body.nombre) && !_.isEmpty(req.body.nombre))
+          product.name = req.body.nombre;
+        if(!_.isUndefined(req.body.descripcion) && !_.isEmpty(req.body.descripcion))
+          product.description = req.body.descripcion;
+        if(!_.isUndefined(req.body.precio) && !_.isEmpty(req.body.precio))
+          product.price = req.body.precio;
         if(!_.isUndefined(req.body.stock) && !_.isEmpty(req.body.stock))
           product.stock = req.body.stock;
-        if(!_.isUndefined(req.body.urlImg) && !_.isEmpty(req.bodyurlImg))
+        if(!_.isUndefined(req.body.urlImg) && !_.isEmpty(req.body.urlImg))
           product.urlImg = req.body.urlImg;
-        if(!_.isUndefined(req.body.categoryId) && !_.isEmpty(req.body.categoryId))
-          product.categoryId = req.body.categoryId;
+        if(!_.isUndefined(req.body.idCategoria) && !_.isEmpty(req.body.idCategoria))
+          product.categoryId = req.body.idCategoria;
         product.updated = Date.now();
 
       product.save(function(err) {
