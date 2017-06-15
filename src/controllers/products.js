@@ -21,12 +21,12 @@ export class ProductController {
    add(req, res) {
     console.log(req.body);
     var Product =  mongoose.model('Product')({
-      name: req.body.name,
-      description: req.body.description,
-      price: req.body.price,
+      name: req.body.nombre,
+      description: req.body.descripcion,
+      price: req.body.precio,
       stock: req.body.stock,
       urlImg: req.body.urlImg,
-      categoryId: req.body.categoryId,
+      categoryId: req.body.idCategoria,
       created: Date.now()
     });
     Product.save(function(err, product) {
@@ -47,12 +47,12 @@ export class ProductController {
           product.description = req.body.descripcion;
         if(!_.isUndefined(req.body.precio) && !_.isEmpty(req.body.precio))
           product.price = req.body.precio;
-        if(!_.isUndefined(req.body.stock) && !_.isEmpty(req.body.stock))
-          product.stock = req.body.stock;
         if(!_.isUndefined(req.body.urlImg) && !_.isEmpty(req.body.urlImg))
           product.urlImg = req.body.urlImg;
         if(!_.isUndefined(req.body.idCategoria) && !_.isEmpty(req.body.idCategoria))
           product.categoryId = req.body.idCategoria;
+
+        product.stock = req.body.stock;
         product.updated = Date.now();
 
       product.save(function(err) {
