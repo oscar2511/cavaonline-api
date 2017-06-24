@@ -41,30 +41,20 @@ export class OrderController {
    }
 
    //PUT - Update a register already exists
-  /*update(req, res) {
-      let Product =  mongoose.model('Product');
-      Product.findById(req.params.id, function(err, product) {
-
-        if(!_.isUndefined(req.body.name) && !_.isEmpty(req.body.name))
-          product.name = req.body.name;
-        if(!_.isUndefined(req.body.description) && !_.isEmpty(req.body.description))
-          product.description = req.body.description;
-        if(!_.isUndefined(req.body.price) && !_.isEmpty(req.body.price))
-          product.price = req.body.price;
-        if(!_.isUndefined(req.body.stock) && !_.isEmpty(req.body.stock))
-          product.stock = req.body.stock;
-        if(!_.isUndefined(req.body.urlImg) && !_.isEmpty(req.bodyurlImg))
-          product.urlImg = req.body.urlImg;
-        if(!_.isUndefined(req.body.categoryId) && !_.isEmpty(req.body.categoryId))
-          product.categoryId = req.body.categoryId;
-        product.updated = Date.now();
-
-      product.save(function(err) {
-      if(err) return res.send(500, err.message);
-      res.status(200).jsonp(product);
+  update(req, res) {
+      console.info('Update state ',req.body);
+      let Order =  mongoose.model('Order');
+      Order.findById(req.params.id, function(err, order) {
+        if(!_.isUndefined(req.body.state)) {
+          order.state = req.body.state;
+        }
+        order.updated = Date.now();
+        order.save(function(err) {
+        if(err) return res.send(500, err.message);
+        res.status(200).jsonp(order);
+       });
      });
-   });
- };*/
+  };
 
   //GET - Return a register with specified ID
   findById(req, res) {
@@ -77,14 +67,13 @@ export class OrderController {
   };
 
   //GET - Return a register with specified ID
-  /*findByCategory(req, res) {
-    console.log(req.params);
-      let Product =  mongoose.model('Product');
-      Product.find({"categoryId": req.params.id}, (err, products) => {
+  findByState(req, res) {
+    console.info('Get orders by state: ',req.params);
+      let Order =  mongoose.model('Order');
+      Order.find({'state': req.params.id}, (err, orders) => {
         if(err) return res.send(500, err.message);
-        console.log('GET /products/category/:id' + req.params.id);
-        res.status(200).jsonp(products);
+        res.status(200).jsonp(orders);
       });
-  };*/
+  };
 
 }

@@ -67,8 +67,11 @@ api.route('/products/:id')
   .post(OrderCtrl.newOrder);
 
   api.route('/order/:id')
-   .get(OrderCtrl.findById);
-   //.put(ProductCtrl.update);
+   .get(OrderCtrl.findById)
+   .put(OrderCtrl.update);
+
+   api.route('/order/state/:id')
+    .get(OrderCtrl.findByState);
 
  api.route('/products/category/:id')
   .get(ProductCtrl.findByCategory);
