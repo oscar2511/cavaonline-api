@@ -3,8 +3,20 @@ import express from 'express';
 import bodyParser from 'body-parser';
 import mongoose from 'mongoose';
 import methodOverride from 'method-override';
-import {Conn} from './config/conn';
-import {allowCrossDomain} from './config/config'
+import { Conn } from './config/conn';
+import { allowCrossDomain } from './config/config'
+
+// Import Models and Controllers
+var modelProduct   = require('./models/product')(app, mongoose);
+var modelsCategory = require('./models/category')(app, mongoose);
+var modelDevice    = require('./models/device')(app, mongoose);
+var modelOrder     = require('./models/order')(app, mongoose);
+
+import { ProductController } from './controllers/products';
+import { DeviceController } from './controllers/devices';
+import { OrderController } from './controllers/orders';
+import { CategoryController } from './controllers/categories';
+
 
 var app = express();
 
@@ -19,19 +31,9 @@ app.use(bodyParser.json());
 app.use(allowCrossDomain);
 app.use(methodOverride());
 
-// Import Models and Controllers
-var modelProduct   = require('./models/product')(app, mongoose);
-var modelsCategory = require('./models/category')(app, mongoose);
-var modelDevice    = require('./models/device')(app, mongoose);
-var modelOrder     = require('./models/order')(app, mongoose);
-
-import {ProductController} from './controllers/products';
-import {DeviceController} from './controllers/devices';
-import {OrderController} from './controllers/orders';
-
 var ProductCtrl  = new ProductController();
 var DeviceCtrl   = new DeviceController();
-var CategoryCtrl = require('./controllers/categories');
+var CategoryCtrl = new CategoryController();//require('./controllers/categories');
 var OrderCtrl    = new OrderController();
 
 var router = express.Router();

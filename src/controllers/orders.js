@@ -16,7 +16,7 @@ export class OrderController {
    };
 
   /**
-  * //POST - Add a new product
+  * POST - Add a new order
   */
    newOrder(req, res) {
     if(!_.isNumber(req.body.numero)) return res.send(500, 'numero is required');
@@ -40,7 +40,9 @@ export class OrderController {
     })
    }
 
-   //PUT - Update a register already exists
+   /**
+   * PUT - Update a register already exists
+   */
   update(req, res) {
       console.info('Update state ',req.body);
       let Order =  mongoose.model('Order');
@@ -56,7 +58,9 @@ export class OrderController {
      });
   };
 
-  //GET - Return a register with specified ID
+  /**
+  * GET - Return a register with specified ID
+  */
   findById(req, res) {
       let Order =  mongoose.model('Order');
       Order.findById(req.params.id, function(err, order) {
@@ -66,7 +70,9 @@ export class OrderController {
       });
   };
 
-  //GET - Return a register with specified ID
+  /**
+  * GET - Return a register with specified ID
+  */
   findByState(req, res) {
     console.info('Get orders by state: ',req.params);
       let Order =  mongoose.model('Order');
